@@ -33,10 +33,10 @@ canvas1.create_window(380, 130, window=entry1)
 #get forecast function-creating labels
 def get_forecast():
     city = entry1.get()
-    url = 'HTTP://api.openweathermap.org/data/2.5/weather?q={0}&appid=408973bfe4332ff2c0599a72e8fd8e0e'.format(city)
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={0}&appid=408973bfe4332ff2c0599a72e8fd8e0e'.format(city)
     r = requests.get(url)
     
-    label1 = tk.Label(root, text='WEATHER FORECAST FOR  ' + city)
+    label1 = tk.Label(root, text='WEATHER FORECAST FOR  ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
