@@ -3,7 +3,7 @@ import requests
 url = "https://community-open-weather-map.p.rapidapi.com/weather"
 city = input('Enter a city name to view its weather: ')
 
-querystring = {"callback":"test","id":"2172797","lang":"-en","metric":"units %3D metric","q":city}
+querystring = {"callback":"test","id":"2172797","lang":"-en","metric":"units","q":city}
 
 headers = {
     'x-rapidapi-host': "community-open-weather-map.p.rapidapi.com",
