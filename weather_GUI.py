@@ -62,7 +62,7 @@ def get_forecast():
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
-    while data:
+    if data is not NULL:
         label2 = tk.Label(root, text='JSON file created')
         label2.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(320, 260, window=label2)
