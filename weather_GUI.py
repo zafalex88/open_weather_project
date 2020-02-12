@@ -53,14 +53,15 @@ def get_forecast():
     }
 
     response = requests.request("GET", url, headers=headers, params=querystring)
+    data = response.text
+    w = open('weather.json', 'w')
+    w.write(data)
+    w.close()
     
     label1 = tk.Label(root, text='WEATHER FORECAST FOR  ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
-    T = tk.Text(root, height=100, width=100)
-    T.insert(tk.END, response)
-    canvas1.create_window(320, 280, window=T)
 
 #creating a button and adding the function    
 button1 = tk.Button(text='Get forecast', command=get_forecast)
