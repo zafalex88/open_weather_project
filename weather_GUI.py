@@ -55,6 +55,7 @@ def get_forecast():
     response = requests.request("GET", url, headers=headers, params=querystring)
     data = response.text
     w = open('weather.json', 'w')
+    w.write(data)
     w.close()
     
     label1 = tk.Label(root, text='WEATHER FORECAST FOR  ' + city.upper())
