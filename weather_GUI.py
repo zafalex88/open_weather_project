@@ -58,11 +58,8 @@ def get_forecast():
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
-    
     T = tk.Text(root, height=100, width=100)
-    T.pack()
-    quote = response
-    T.insert(tk.END, quote)
+    T.insert(tk.END, response)
     canvas1.create_window(320, 280, window=T)
 
 #creating a button and adding the function    
