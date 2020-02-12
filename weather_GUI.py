@@ -53,20 +53,31 @@ def get_forecast():
     }
 
     response = requests.request("GET", url, headers=headers, params=querystring)
-    data = response.text
-    w = open('weather.json', 'w')
-    w.write(data)
-    w.close()
+    data = response.json()
+    #writing the response.json to txt file
+    with open('weather.txt', 'w') as file:
+        file.write(json.dumps(data))
+        
+    #writing the response to a json file
+    data2 = response.text
+    f = open("weather.json", "w")
+    f.write(data2)
+    f.close()
     
-    label1 = tk.Label(root, text='WEATHER FORECAST FOR  ' + city.upper())
+    label1 = tk.Label(root, text='WEATHER FORECAST FOR ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
-    if data is not None:
-        label2 = tk.Label(root, text='JSON file created')
+    #city input check
+    if data['cod'] != '404':     
+        label2 = tk.Label(root, text='City Found. \n TXT File Created \n JSON File Created')
         label2.config(font=('verdana', 9, 'bold'))
-        canvas1.create_window(320, 260, window=label2)
-    
+        canvas1.create_window(320, 280, window=label2)
+    else:
+        label4 = tk.Label(root, text='City Not Found')
+        label4.config(font=('verdana', 9, 'bold'))
+        canvas1.create_window(320, 280, window=label4)
+        
 
 #creating a button and adding the function    
 button1 = tk.Button(text='Get forecast', command=get_forecast)
