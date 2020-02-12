@@ -30,17 +30,35 @@ canvas1.create_window(120, 130, window=label3)
 entry1 = tk.Entry(root)
 canvas1.create_window(380, 130, window=entry1)
 
+#days entry box label
+label4 = tk.Label(root, text='Days of forecast')
+label4.config(font=('verdana', 12))
+canvas1.create_window(120, 160, window=label4)
+
+#days entry box
+entry2 = tk.Entry(root)
+canvas1.create_window(380, 160, window=entry2)
+
 #get forecast function-creating labels
 def get_forecast():
     city = entry1.get()
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={0}&appid=408973bfe4332ff2c0599a72e8fd8e0e'.format(city)
-    r = requests.get(url)
+    days = entry2.get()
+    url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
+
+    querystring = {"q":city,"cnt":days,"units":"metric"}
+
+    headers = {
+    'x-rapidapi-host': "community-open-weather-map.p.rapidapi.com",
+    'x-rapidapi-key': "78034bcf5emsh6d33f4776102e77p10adaajsn7041714f6122"
+    }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
     
     label1 = tk.Label(root, text='WEATHER FORECAST FOR  ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
-    label2 = tk.Label(root, text=r)
+    label2 = tk.Label(root, text=response)
     label2.config(font=('verdana', 8, 'bold'))
     canvas1.create_window(320, 260, window=label2)
 
