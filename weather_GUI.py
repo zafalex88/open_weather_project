@@ -2,9 +2,6 @@ import requests
 import tkinter as tk
 import getpass
 import json
-import pandas as pd
-from pandas.io.json import json_normalize
-
 
 #username into a variable
 username = getpass.getuser()
@@ -58,10 +55,6 @@ def get_forecast():
     response = requests.request("GET", url, headers=headers, params=querystring)
     data = response.text
     w = open('weather.json', 'w')
-    w.json_normalize(data['list'])
-    w['city']=data['city']['name']
-    w = w[['main.temp','main.pressure','main.humidity','city']]
-    w.write(data)
     w.close()
     
     label1 = tk.Label(root, text='WEATHER FORECAST FOR  ' + city.upper())
