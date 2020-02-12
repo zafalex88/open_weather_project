@@ -54,22 +54,22 @@ def get_forecast():
 
     response = requests.request("GET", url, headers=headers, params=querystring)
     data = response.json()
-    #writing the response.json to txt file
-    with open('weather.txt', 'w') as file:
-        file.write(json.dumps(data))
-        
-    #writing the response to a json file
     data2 = response.text
-    f = open("weather.json", "w")
-    f.write(data2)
-    f.close()
-    
+        
     label1 = tk.Label(root, text='WEATHER FORECAST FOR ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
     #city input check
-    if data['cod'] != '404':     
+    if data['cod'] != '404':
+        #writing the response.json to a txt file
+        with open('weather.txt', 'w') as file:
+            file.write(json.dumps(data))
+        #writing the response to a json file
+        f = open("weather.json", "w")
+        f.write(data2)
+        f.close() 
+            
         label2 = tk.Label(root, text='City Found. \n TXT File Created \n JSON File Created')
         label2.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(320, 280, window=label2)
