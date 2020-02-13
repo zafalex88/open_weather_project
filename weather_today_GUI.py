@@ -30,22 +30,12 @@ canvas1.create_window(120, 130, window=label3)
 entry1 = tk.Entry(root)
 canvas1.create_window(380, 130, window=entry1)
 
-#days entry box label
-label4 = tk.Label(root, text='Days of forecast')
-label4.config(font=('verdana', 12))
-canvas1.create_window(120, 160, window=label4)
-
-#days entry box
-entry2 = tk.Entry(root)
-canvas1.create_window(380, 160, window=entry2)
-
 #get forecast function-creating labels
 def get_forecast():
     city = entry1.get()
-    days = entry2.get()
-    url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
+    url = "https://community-open-weather-map.p.rapidapi.com/weather"
 
-    querystring = {"q":city,"cnt":days,"units":"metric"}
+    querystring = {"q":city,"units":"metric"}
 
     headers = {
     'x-rapidapi-host': "community-open-weather-map.p.rapidapi.com",
@@ -54,31 +44,35 @@ def get_forecast():
 
     response = requests.request("GET", url, headers=headers, params=querystring)
     #temporary saving response as json
-    data = response.json()
-    data2 = response.text
-    #splitting the response data into 2 dicts. 1 for city details and 1 for the weather forecast
-    city_data_json = data['city']
-    weather_data_json = data['list']   
-     
+    data = response.text
+    data2 = response.json()
+             
     label1 = tk.Label(root, text='WEATHER FORECAST FOR ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
     #city input check
-    if data['cod'] != '404':
+    if data2['sys']['cod'] != '404':
+        #creating json file from response file if city is found
         f = open("weather.json", "w")
-        f.write(data2)
+        f.write(data)
         f.close()
+        country_name = data2["sys"]["country"]
+        city_name = data2["sys"]["name"]
+        current_temperature = data2["main"]["temp"]
+        current_pressure = data2["main"]["pressure"]
+        current_humidity = data2["main"]["humidity"]
+        weather_description = data2["weather"]["main"]  
                 
         label2 = tk.Label(root, text='City Found'.upper() + '\n JSON File Created')
         label2.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(320, 280, window=label2)
         
-        label3 = tk.Label(root, text='City Details: \n ' + str(city_data_json['name'] + '\n' + city_data_json['country']))
+        label3 = tk.Label(root, text='City Details: \n ' + city_name + '\n' + country_name)
         label3.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(100, 340, window=label3)
         
-        label4 = tk.Label(root, text='')
+        label4 = tk.Label(root, text=" Temperature (Celsius) = " + str(current_temperature) + "\n atmospheric pressure (hPa) = " + str(current_pressure) + "\n humidity (in percentage) = " + str(current_humidiy) + "\n description = " + str(weather_description))
         label4.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(500, 340, window=label4)  
     else:
