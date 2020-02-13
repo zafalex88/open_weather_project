@@ -2,12 +2,13 @@ import requests
 import tkinter as tk
 import getpass
 import json
+#import pandas as pd
 
 #username into a variable
 username = getpass.getuser()
 
 #creating canvas
-root = tk.Tk(className='Weather', useTk=1)
+root = tk.Tk(className=' Weather', useTk=1)
 canvas1 = tk.Canvas(root, width=640, height=640)
 canvas1.pack()
 
@@ -53,30 +54,41 @@ def get_forecast():
     }
 
     response = requests.request("GET", url, headers=headers, params=querystring)
+    #temporary saving response as json
     data = response.json()
     data2 = response.text
-        
+    #splitting the response data into 2 dicts. 1 for city details and 1 for the weather forecast
+    city_data_json = data['city']
+    weather_data_json = data['list'] 
+    
+       
     label1 = tk.Label(root, text='WEATHER FORECAST FOR ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
     
     #city input check
     if data['cod'] != '404':
-        #writing the response.json to a txt file
-        with open('weather.txt', 'w') as file:
-            file.write(json.dumps(data))
-        #writing the response to a json file
         f = open("weather.json", "w")
         f.write(data2)
-        f.close() 
-            
-        label2 = tk.Label(root, text='City Found. \n TXT File Created \n JSON File Created')
+        f.close()
+                
+        label2 = tk.Label(root, text='City Found'.upper() + '\n JSON File Created')
         label2.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(320, 280, window=label2)
-    else:
-        label4 = tk.Label(root, text='City Not Found')
+        
+        label3 = tk.Label(root, text='City Details: \n ' + str(city_data_json['name'] + '\n' + city_data_json['country']))
+        label3.config(font=('verdana', 9, 'bold'))
+        canvas1.create_window(100, 340, window=label3)
+        
+        label4 = tk.Label(root, text='')
         label4.config(font=('verdana', 9, 'bold'))
-        canvas1.create_window(320, 280, window=label4)
+        canvas1.create_window(500, 340, window=label4)
+        
+        
+    else:
+        label5 = tk.Label(root, text='City Not Found')
+        label5.config(font=('verdana', 9, 'bold'))
+        canvas1.create_window(320, 280, window=label5)
         
 
 #creating a button and adding the function    
