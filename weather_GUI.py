@@ -2,7 +2,6 @@ import requests
 import tkinter as tk
 import getpass
 import json
-#import pandas as pd
 
 #username into a variable
 username = getpass.getuser()
@@ -59,9 +58,8 @@ def get_forecast():
     data2 = response.text
     #splitting the response data into 2 dicts. 1 for city details and 1 for the weather forecast
     city_data_json = data['city']
-    weather_data_json = data['list'] 
-    
-       
+    weather_data_json = data['list']   
+     
     label1 = tk.Label(root, text='WEATHER FORECAST FOR ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
     canvas1.create_window(320, 240, window=label1)
@@ -82,9 +80,7 @@ def get_forecast():
         
         label4 = tk.Label(root, text='')
         label4.config(font=('verdana', 9, 'bold'))
-        canvas1.create_window(500, 340, window=label4)
-        
-        
+        canvas1.create_window(500, 340, window=label4)  
     else:
         label5 = tk.Label(root, text='City Not Found')
         label5.config(font=('verdana', 9, 'bold'))
