@@ -56,7 +56,7 @@ def get_forecast():
     #temporary saving response as json
     data = response.json()
     data2 = response.text
-    #splitting the response data into 2 dicts. 1 for city details and 1 for the weather forecast
+    #splitting the response data into 2 arrays. 1 for city details and 1 for the weather forecast
     city_data_json = data['city']
     weather_data_json = data['list']   
      
