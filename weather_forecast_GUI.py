@@ -62,9 +62,7 @@ def get_forecast():
     response = requests.request("GET", url, headers=headers, params=querystring)
     #temporary saving response as json
     data = response.json()
-    data2 = response.text
-    city_data_json = data['city']
-    weather_data_json = data['list']   
+    data2 = response.text  
      
     label1 = tk.Label(root, text='WEATHER FORECAST FOR ' + city.upper())
     label1.config(font=('verdana', 9, 'bold'))
@@ -77,6 +75,7 @@ def get_forecast():
         label2.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(320, 280, window=label2)
         
+        city_data_json = data['city']
         label3 = tk.Label(root, text='City Details:\n ' + str(city_data_json['name']) + '\n' + str(city_data_json['country']))
         label3.config(font=('verdana', 10, 'bold'))
         canvas1.create_window(120, 350, window=label3)
@@ -108,7 +107,7 @@ def get_forecast():
             
         button1 = tk.Button(text='Save', command=create_txt)
         button1.config(font=('verdana', 9, 'bold'))
-        canvas1.create_window(120, 550, window=button1)
+        canvas1.create_window(120, 540, window=button1)
     
     else:
         label5 = tk.Label(root, text='City Not Found')
@@ -124,6 +123,6 @@ canvas1.create_window(320, 200, window=button1)
 #exit button
 button2 = tk.Button(text='Exit', command=root.destroy)
 button2.config(bg='Black', fg='white', font=('verdana', 10, 'bold'))
-canvas1.create_window(320, 770, window=button2)
+canvas1.create_window(320, 780, window=button2)
 
 root.mainloop()
