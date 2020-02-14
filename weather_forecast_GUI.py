@@ -12,6 +12,12 @@ root = tk.Tk(className=' Weather', useTk=1)
 canvas1 = tk.Canvas(root, width=640, height=800)
 canvas1.pack()
 
+#adding window icon
+root.iconbitmap('weather.ico')
+
+#Forbid resizing in the x or y direction
+root.resizable(0, 0)
+
 #Greeting
 label1 = tk.Label(root, text='Welcome, ' + username + '!')
 label1.config(font=('verdana', 20))
@@ -56,6 +62,7 @@ def get_forecast():
     response = requests.request("GET", url, headers=headers, params=querystring)
     #temporary saving response as json
     data = response.json()
+    data2 = response.text
     city_data_json = data['city']
     weather_data_json = data['list']   
      
@@ -74,19 +81,34 @@ def get_forecast():
         label3.config(font=('verdana', 10, 'bold'))
         canvas1.create_window(120, 350, window=label3)
         
-        lb = tk.Listbox(root, height=25, width=40)
+        lb = tk.Listbox(root, height=28, width=35)
         lb.config(font=('verdana', 9))
-        lb.place(x=280, y=320)
+        lb.place(x=270, y=320)
         for day in data['list']:
             date = datetime.datetime.fromtimestamp(day['dt'])
             text = 'DATE:', date
-            text2 = 'Temp min:', day['temp']['min']
+            text2 = 'Weather:', day['weather'][0]['description']
             text3 = 'Temp max:', day['temp']['max']
             text4 = 'Humidity:', day['humidity']
+            text5 = 'Temp min:', day['temp']['min']
             lb.insert('end', text)
             lb.insert('end', text2)
             lb.insert('end', text3)
             lb.insert('end', text4)
+            lb.insert('end', text5)
+            
+        label4 = tk.Label(root, text='save the complete \n forecast in a \n txt file'.title())
+        label4.config(font=('verdana', 9, 'bold'))
+        canvas1.create_window(120, 500, window=label4)
+        
+        def create_txt():
+            file = open("forecast.txt", "w")
+            file.write(data2)
+            file.close()
+            
+        button1 = tk.Button(text='Save', command=create_txt)
+        button1.config(font=('verdana', 9, 'bold'))
+        canvas1.create_window(120, 550, window=button1)
     
     else:
         label5 = tk.Label(root, text='City Not Found')
