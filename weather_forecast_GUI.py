@@ -2,13 +2,14 @@ import requests
 import tkinter as tk
 import getpass
 import json
+import datetime
 
 #username into a variable
 username = getpass.getuser()
 
 #creating canvas
 root = tk.Tk(className=' Weather', useTk=1)
-canvas1 = tk.Canvas(root, width=640, height=640)
+canvas1 = tk.Canvas(root, width=640, height=800)
 canvas1.pack()
 
 #Greeting
@@ -55,8 +56,6 @@ def get_forecast():
     response = requests.request("GET", url, headers=headers, params=querystring)
     #temporary saving response as json
     data = response.json()
-    data2 = response.text
-    #splitting the response data into 2 arrays. 1 for city details and 1 for the weather forecast
     city_data_json = data['city']
     weather_data_json = data['list']   
      
@@ -66,22 +65,29 @@ def get_forecast():
     
     #city input check
     if data['cod'] != '404':
-        #creating json file from response file if city is found
-        f = open("forecast.json", "w")
-        f.write(data2)
-        f.close()
                 
-        label2 = tk.Label(root, text='City Found'.upper() + '\n JSON File Created')
+        label2 = tk.Label(root, text='City Found'.upper())
         label2.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(320, 280, window=label2)
         
-        label3 = tk.Label(root, text='City Details: \n ' + str(city_data_json['name']) + '\n' + str(city_data_json['country']))
-        label3.config(font=('verdana', 9, 'bold'))
-        canvas1.create_window(100, 340, window=label3)
+        label3 = tk.Label(root, text='City Details:\n ' + str(city_data_json['name']) + '\n' + str(city_data_json['country']))
+        label3.config(font=('verdana', 10, 'bold'))
+        canvas1.create_window(120, 350, window=label3)
         
-        label4 = tk.Label(root, text='')
-        label4.config(font=('verdana', 9, 'bold'))
-        canvas1.create_window(500, 340, window=label4)  
+        lb = tk.Listbox(root, height=25, width=40)
+        lb.config(font=('verdana', 9))
+        lb.place(x=280, y=320)
+        for day in data['list']:
+            date = datetime.datetime.fromtimestamp(day['dt'])
+            text = 'DATE:', date
+            text2 = 'Temp min:', day['temp']['min']
+            text3 = 'Temp max:', day['temp']['max']
+            text4 = 'Humidity:', day['humidity']
+            lb.insert('end', text)
+            lb.insert('end', text2)
+            lb.insert('end', text3)
+            lb.insert('end', text4)
+    
     else:
         label5 = tk.Label(root, text='City Not Found')
         label5.config(font=('verdana', 9, 'bold'))
@@ -96,6 +102,6 @@ canvas1.create_window(320, 200, window=button1)
 #exit button
 button2 = tk.Button(text='Exit', command=root.destroy)
 button2.config(bg='Black', fg='white', font=('verdana', 10, 'bold'))
-canvas1.create_window(320, 600, window=button2)
+canvas1.create_window(320, 770, window=button2)
 
 root.mainloop()
