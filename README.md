@@ -1,2 +1,2 @@
-#open_weather_PROJECT
+#open_weather_project
 open weather api program with GUI using tkinter
