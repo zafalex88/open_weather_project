@@ -1,2 +1,2 @@
-#open_weather_TEST
-open weather api program with city input
+#open_weather_project
+open weather api program with GUI using tkinter
