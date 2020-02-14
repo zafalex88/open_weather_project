@@ -35,7 +35,7 @@ canvas1.create_window(120, 130, window=label3)
 
 #city entry box 
 entry1 = tk.Entry(root)
-canvas1.create_window(380, 130, window=entry1)
+canvas1.create_window(400, 130, window=entry1)
 
 #days entry box label
 label4 = tk.Label(root, text='Days of forecast')
@@ -44,7 +44,7 @@ canvas1.create_window(120, 160, window=label4)
 
 #days entry box
 entry2 = tk.Entry(root)
-canvas1.create_window(380, 160, window=entry2)
+canvas1.create_window(400, 160, window=entry2)
 
 #get forecast function-creating labels
 def get_forecast():
@@ -114,7 +114,6 @@ def get_forecast():
         label5.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(320, 280, window=label5)
         
-
 #creating a button and adding the function    
 button1 = tk.Button(text='Get forecast', command=get_forecast)
 button1.config(bg='red', fg='white', font=('verdana', 9, 'bold'))
