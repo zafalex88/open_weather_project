@@ -75,7 +75,7 @@ def get_forecast():
         label2.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(320, 280, window=label2)
         
-        label3 = tk.Label(root, text='City Details: \n ' + str(city_data_json['name'] + '\n' + city_data_json['country']))
+        label3 = tk.Label(root, text='City Details: \n ' + str(city_data_json['name']) + '\n' + str(city_data_json['country']))
         label3.config(font=('verdana', 9, 'bold'))
         canvas1.create_window(100, 340, window=label3)
         
