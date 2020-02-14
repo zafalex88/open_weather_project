@@ -87,9 +87,9 @@ def get_forecast():
             date = datetime.datetime.fromtimestamp(day['dt'])
             text = 'DATE:', date
             text2 = 'Weather:', day['weather'][0]['description']
-            text3 = 'Temp max:', day['temp']['max']
-            text4 = 'Humidity:', day['humidity']
-            text5 = 'Temp min:', day['temp']['min']
+            text3 = 'Temp min:', day['temp']['min']
+            text4 = 'Temp max:', day['temp']['max']
+            text5 = 'Humidity:', day['humidity']
             lb.insert('end', text)
             lb.insert('end', text2)
             lb.insert('end', text3)
