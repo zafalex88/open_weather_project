@@ -80,11 +80,11 @@ def get_forecast():
         label3.config(font=('verdana', 10, 'bold'))
         canvas1.create_window(120, 350, window=label3)
         
-        lb = tk.Listbox(root, height=28, width=35)
+        lb = tk.Listbox(root, height=30, width=35)
         lb.config(font=('verdana', 9))
-        lb.place(x=270, y=320)
+        lb.place(x=260, y=300)
         for day in data['list']:
-            date = str(datetime.datetime.fromtimestamp(day['dt']))
+            date = str(datetime.datetime.fromtimestamp(day['dt']).strftime('%d-%m-%y'))
             weather =str(day['weather'][0]['description'])
             min_temp = float(day['temp']['min'])
             max_temp = float(day['temp']['max'])
@@ -94,7 +94,7 @@ def get_forecast():
             text3 = 'Temp min:'
             text4 = 'Temp max:'
             text5 = 'Humidity:'
-            lb.insert('end', '{0} {1}'.format(text, date))
+            lb.insert('end', '{0} {1}'.format(text, date[0:11]))
             lb.insert('end', '{0} {1}'.format(text2, weather))
             lb.insert('end', '{0} {1}'.format(text3, min_temp))
             lb.insert('end', '{0} {1}'.format(text4, max_temp))
