@@ -76,7 +76,7 @@ def get_forecast():
         canvas1.create_window(320, 280, window=label2)
         
         city_data_json = data['city']
-        label3 = tk.Label(root, text='City Details:\n ' + str(city_data_json['name']) + '\n' + str(city_data_json['country']))
+        label3 = tk.Label(root, text='City Details:\n' + str(city_data_json['name']) + '\n' + str(city_data_json['country']))
         label3.config(font=('verdana', 10, 'bold'))
         canvas1.create_window(120, 350, window=label3)
         
@@ -84,17 +84,22 @@ def get_forecast():
         lb.config(font=('verdana', 9))
         lb.place(x=270, y=320)
         for day in data['list']:
-            date = datetime.datetime.fromtimestamp(day['dt'])
-            text = 'DATE:', date
-            text2 = 'Weather:', day['weather'][0]['description']
-            text3 = 'Temp min:', day['temp']['min']
-            text4 = 'Temp max:', day['temp']['max']
-            text5 = 'Humidity:', day['humidity']
-            lb.insert('end', text)
-            lb.insert('end', text2)
-            lb.insert('end', text3)
-            lb.insert('end', text4)
-            lb.insert('end', text5)
+            date = str(datetime.datetime.fromtimestamp(day['dt']))
+            weather =str(day['weather'][0]['description'])
+            min_temp = float(day['temp']['min'])
+            max_temp = float(day['temp']['max'])
+            hum = int(day['humidity'])
+            text = 'DATE:'
+            text2 = 'Weather:'
+            text3 = 'Temp min:'
+            text4 = 'Temp max:'
+            text5 = 'Humidity:'
+            lb.insert('end', '{0} {1}'.format(text, date))
+            lb.insert('end', '{0} {1}'.format(text2, weather))
+            lb.insert('end', '{0} {1}'.format(text3, min_temp))
+            lb.insert('end', '{0} {1}'.format(text4, max_temp))
+            lb.insert('end', '{0} {1}'.format(text5, hum))
+            lb.insert('end', '')
             
         label4 = tk.Label(root, text='save the complete \n forecast in a \n txt file'.title())
         label4.config(font=('verdana', 9, 'bold'))
