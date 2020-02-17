@@ -94,11 +94,11 @@ def get_forecast():
             text3 = 'Temp min:'
             text4 = 'Temp max:'
             text5 = 'Humidity:'
-            lb.insert('end', '{0} {1}'.format(text, date[0:11]))
+            lb.insert('end', '{0} {1}'.format(text, date[0:10]))
             lb.insert('end', '{0} {1}'.format(text2, weather))
             lb.insert('end', '{0} {1}'.format(text3, min_temp))
             lb.insert('end', '{0} {1}'.format(text4, max_temp))
-            lb.insert('end', '{0} {1}'.format(text5, hum))
+            lb.insert('end', '{0} {1}{2}'.format(text5, hum, '%'))
             lb.insert('end', '')
             
         label4 = tk.Label(root, text='save the complete \n forecast in a \n txt file'.title())
